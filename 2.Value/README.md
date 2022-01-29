@@ -142,3 +142,59 @@ Number.isSafeInteger(a);
 >```
 
 #### 무한대
+
+![infinity](https://user-images.githubusercontent.com/86486778/151662592-4baaae5f-e49c-4b20-b260-518092470bb4.png)
+> 무한대 / 무한대 === NaN
+
+#### 영(0)
+- 자바스크립트는 보통의 0(+0 이라고 함)과 음의 영(-0)이 있다.
+
+![minus zero](https://user-images.githubusercontent.com/86486778/151662772-c23a544d-8d3b-4032-a1f0-7f0cd666c47b.png)
+> 문자열화 하면 항상 "0", 문자열에서 숫자로 바꾸면 있는 그대로 보여준다.
+> 비교연산 역시 속인다
+
+![zero vs minus zero](https://user-images.githubusercontent.com/86486778/151662899-56238b93-78b6-48b9-a197-71b0980c6a46.png)
+
+![isNegZero](https://user-images.githubusercontent.com/86486778/151663093-e70cf605-567a-4250-9e6a-5b27f103300a.png)
+>0과 -0을 구별해주는 함수
+
+### 4.4 특이한 동등 비교
+- ES6부터 두 값이 절대적으로 동등한지를 확인하는 새로운 유틸리티를 지원.
+- Object.is()
+
+![Object.is](https://user-images.githubusercontent.com/86486778/151663188-2da2deb1-774a-4562-a4e9-9bcd9440c26e.png)
+> ==나 ===로 처리가 된다면 굳이 Object.is()는 사용하지 않는편이 좋다. 특이한 동등 비교에만 사용
+
+## 5. 값 vs 레퍼런스
+
+![value vs reference](https://user-images.githubusercontent.com/86486778/151663983-b15ab313-3573-4754-a6b6-a83510f61634.png)
+
+> 값-복사 방식으로 할당/전달 되는 타입
+> - null
+> - undefined
+> - string
+> - number
+> - boolean
+> - symbol
+
+> 래퍼런스 사본을 생성하여 할당/전달 되는 타입
+> - 객체(배열과 박싱된 객체 래퍼 전체)
+> - 함수 등 합성 값
+
+>래퍼런스 참조
+>
+>![reference](https://user-images.githubusercontent.com/86486778/151670551-b13e36d4-9393-4dbe-a6fe-bed550c6336c.png)
+
+>래퍼런스 참조2
+>
+>![reference2](https://user-images.githubusercontent.com/86486778/151672031-c35bd3b8-0844-4702-8dcc-6cea4482fcdf.png)
+
+>래퍼런스 참조(객체)
+>
+>![obj reference](https://user-images.githubusercontent.com/86486778/151672892-d25cdc96-63aa-44b1-a94f-3477fcf682a8.png)
+
+>래퍼런스 참조(number객체)
+>
+>![Number obj reference](https://user-images.githubusercontent.com/86486778/151673002-b81a73f8-0996-402f-8aa8-356139e80267.png)
+> - 내부의 스칼라 원시값이 불변임(문자열, 불리언도 마찬가지.)
+> - 표현식 x+1에서 사용될 때 내부 스칼라 원시 값 2가 Number 객체에서 자동으로 언박싱(추출)됨
