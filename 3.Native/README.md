@@ -4,13 +4,15 @@
 - String(), Number(), Boolean(), Array(), Object(), Function(), RegExp(), Date(), Error(), Symbol() 등이 있다 ---> 네이티브는 내장함수이다!
 
 > new String('abc') 은 '문자열 래퍼를 생성'하고, 원시값'abc'와는 다름!
+<img width="835" alt="스크린샷 2022-02-04 오후 5 29 19" src="https://user-images.githubusercontent.com/67423755/152496557-c335c159-773e-4e41-89b5-d9dd71c86050.png">
 
-TODO: 예제 이미지 삽입
+
 
 ## 3.1. 내부 [[ Class ]] ( 내부 프로퍼티 )
 - 내부프로퍼티에는 직접 접근할 수는 없고 Object.prototype.toString()라는 메서드에 값을 넣어 호출함으로써 엿볼 수 있다.
 
-TODO: 예제 이미지 삽입
+<img width="796" alt="스크린샷 2022-02-04 오후 5 30 49" src="https://user-images.githubusercontent.com/67423755/152496987-a7ff8801-9467-40fb-a854-7a3e843639dd.png">
+
 
 > object(배열,정규표현식 등) 
 - object에는 [[ Class ]]라는 내부 프로퍼티가 추가로 붙음.
@@ -20,28 +22,26 @@ TODO: 예제 이미지 삽입
 > native(문자열,숫자,불리언) : 자동으로 boxing과정을 거쳐 객체래퍼가 됨.
 
 
+
+
 ## 3.2. 래퍼 박싱하기
 - .length 나 .toString()으로 접근하려면 원시값을 객체래퍼로 감싸줘야하는데, 자바스크립트에서는 자동으로 래핑함.
-
 - 객체 형태로 직접 '선 최적화'하면 프로그램이 더 느려질 수 있음.
-
-TODO: 예제 이미지 삽입
+<img width="669" alt="스크린샷 2022-02-04 오후 5 31 13" src="https://user-images.githubusercontent.com/67423755/152497065-6c686319-04cb-44a0-8af3-8295f89272dd.png">
 > 그러니 new String('abc'), new Number(42) 처럼 코딩하지 말고 그냥 알기 쉽게 원시값 'abc', 42를 사용하자.
-
-FIXME:
 
 ### 3.2.1. 객체 래퍼의 함정
 - 객체 래퍼를 사용할때 조심해야할 함정이 있다.
-TODO: 예제 이미지 삽입
-
+<img width="780" alt="스크린샷 2022-02-04 오후 5 31 45" src="https://user-images.githubusercontent.com/67423755/152497156-5668a7e4-6b58-4dd9-bb6d-a2d5af3966df.png">
 - 수동으로 원시값을 래핑하려면 Object() 함수를 이용하자.
-- 하지만 객체 래퍼로 직접 박싱하는건 왠만하면 하지말자! (굳이..왜..해...?)
+- 하지만 객체 래퍼로 직접 박싱하는건 왠만하면 하지말자! (굳이..)
 
 
 
 ## 3.3. 언박싱
 - 객체 래퍼의 원시값은 valueOf() 메서드로 추출한다.
-TODO: 예제 이미지 삽입
+<img width="777" alt="스크린샷 2022-02-04 오후 5 35 59" src="https://user-images.githubusercontent.com/67423755/152497781-c98e83b1-b544-435a-9764-f64f6481c453.png">
+
 
 
 
@@ -53,19 +53,22 @@ TODO: 예제 이미지 삽입
 - Array(1,2,3)과 new Array(1,2,3)은 같다, 하지만 배열의 크기를 미리 정하는건 이상함(나중에 까먹으면 어쩌려고?)
 - 빈배열을 만들고 나중에 length프로퍼티에 숫자값을 할당하는게 맞음(빈배열 생기면 안됨! 구멍난배열 만드는 바보같은짓!)
 - 빈배열 말고 'undefined' 값 원소로 채워진 배열 생성 하는 방법? ::: Array.apply(null, {length:3}) ::: -> Array(3)보다 훨씬 나음
+<img width="826" alt="스크린샷 2022-02-04 오후 5 36 29" src="https://user-images.githubusercontent.com/67423755/152497696-4950c45a-fb49-4c8a-b6a1-f57ca7e61847.png">
+
+
 
 ### 3.4.2. Object(), Function(), and RegExp() 
 - Object() 생성자는 쓸일이 없다. 리터럴로 한번에 정의할 수 있는데 굳이?
 - Function() 생성자는 함수의 인자나내용을 동적으로 정의해야하는 매우 드문경우에 한해 유용함. 하지만 거의 없다.
 - RegExp() 생성자는 정규표현식 패턴을 동적으로 정의해야하는 경우 :: new RegExp("패턴","플래그")
-TODO: 예제이미지 삽입
+<img width="738" alt="스크린샷 2022-02-04 오후 5 36 50" src="https://user-images.githubusercontent.com/67423755/152497882-a289b2c2-5846-4ca0-8ba2-1797d46eab68.png">
 
 ### 3.4.3. Date(), Error()
 - 리터럴 형식이 없어서 다른 네이티브에 비해 유용하다.
 - date 객체값은 new Date()로 생성한다. date 객체의 인스턴스로부터 getTime()을 호출하면 됨. === Date.now() 사용하면 됨. 이게 더 간단함.
 TODO: 이미지
 - error 객체는 현재 실행콘텍스트를 포착해서 객체에 담는것이다. 보통 throw 연산자와 함께 사용함.
-TODO: 이미지
+<img width="691" alt="스크린샷 2022-02-04 오후 5 37 03" src="https://user-images.githubusercontent.com/67423755/152497934-0e0b96af-da06-44dc-9779-8baea61647cc.png">
 
 ### 3.4.4. Symbol()
 - ES6에서 처음 도입
