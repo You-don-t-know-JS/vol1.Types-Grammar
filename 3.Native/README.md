@@ -1,65 +1,70 @@
 # CH 03. Native
 > 네이티브란?
-- 특정환경에 종속되지 않은, ECMAScript 명세의 내장 객체이다.
-- String(), Number(), Boolean(), Array(), Object(), Function(), RegExp(), Date(), Error(), Symbol() 등이 있다 ---> 네이티브는 내장함수이다!
+- 특정환경에 종속되지 않은, ECMAScript 명세의 **내장객체**이며,함수형태이다.(ex.window는 브라우저환경에 종속됨)
+- String()
+- Number()
+- Boolean()
+- Array()
+- Object()
+- Function()
+- RegExp()
+- Date()
+- Error()
+- Symbol() 
 
 > new String('abc') 은 '문자열 래퍼를 생성'하고, 원시값'abc'와는 다름!
 <img width="835" alt="스크린샷 2022-02-04 오후 5 29 19" src="https://user-images.githubusercontent.com/67423755/152496557-c335c159-773e-4e41-89b5-d9dd71c86050.png">
 
 
-
+<br/><br/>
 ## 3.1. 내부 [[ Class ]] ( 내부 프로퍼티 )
 - 내부프로퍼티에는 직접 접근할 수는 없고 Object.prototype.toString()라는 메서드에 값을 넣어 호출함으로써 엿볼 수 있다.
-
+- **object(배열,정규표현식 등)** :object에는 [[ Class ]]라는 내부 프로퍼티가 추가로 붙음.
+- **null, undefined** : 네이티브 생성자는 없지만 내부 [[ Class ]] 값은 확인할 수 있다.
+- **그밖에 원시값들(문자열,숫자,불리언)** : 자동으로 boxing과정을 거쳐 객체래퍼가 됨.
 <img width="796" alt="스크린샷 2022-02-04 오후 5 30 49" src="https://user-images.githubusercontent.com/67423755/152496987-a7ff8801-9467-40fb-a854-7a3e843639dd.png">
 
 
-> object(배열,정규표현식 등) 
-- object에는 [[ Class ]]라는 내부 프로퍼티가 추가로 붙음.
-    
-> null, undefined 
-
-> native(문자열,숫자,불리언) : 자동으로 boxing과정을 거쳐 객체래퍼가 됨.
 
 
 
+<br/><br/>
 
 ## 3.2. 래퍼 박싱하기
-- .length 나 .toString()으로 접근하려면 원시값을 객체래퍼로 감싸줘야하는데, 자바스크립트에서는 자동으로 래핑함.
+- 아마 다른언어에서는 .length 나 .toString()으로 접근하려면 원시값을 객체래퍼로 감싸줘야하는데, 자바스크립트에서는 자동으로 래핑함.
 - 객체 형태로 직접 '선 최적화'하면 프로그램이 더 느려질 수 있음.
-<img width="669" alt="스크린샷 2022-02-04 오후 5 31 13" src="https://user-images.githubusercontent.com/67423755/152497065-6c686319-04cb-44a0-8af3-8295f89272dd.png">
+
 > 그러니 new String('abc'), new Number(42) 처럼 코딩하지 말고 그냥 알기 쉽게 원시값 'abc', 42를 사용하자.
 
 ### 3.2.1. 객체 래퍼의 함정
 - 객체 래퍼를 사용할때 조심해야할 함정이 있다.
 <img width="780" alt="스크린샷 2022-02-04 오후 5 31 45" src="https://user-images.githubusercontent.com/67423755/152497156-5668a7e4-6b58-4dd9-bb6d-a2d5af3966df.png">
-- 수동으로 원시값을 래핑하려면 Object() 함수를 이용하자.
-- 하지만 객체 래퍼로 직접 박싱하는건 왠만하면 하지말자! (굳이..)
 
-
+<br/><br/>
 
 ## 3.3. 언박싱
 - 객체 래퍼의 원시값은 valueOf() 메서드로 추출한다.
 <img width="777" alt="스크린샷 2022-02-04 오후 5 35 59" src="https://user-images.githubusercontent.com/67423755/152497781-c98e83b1-b544-435a-9764-f64f6481c453.png">
 
-
-
+<br/><br/>
 
 ## 3.4. 네이티브, 나는 생성자다
-- 배열, 객체, 함수, 정규식 값은 리터럴 형태로 생성하는것이 일반적이지만, 리터럴은 생성자형식으로 만든 것과 동일한 종류의 객체를 생성함. 그러므로 진~~짜 필요한게 아니면 생성자는 가급적 쓰지말기!
+- 배열, 객체, 함수, 정규식 값은 리터럴 형태로 생성하는 것이 일반적이며, 리터럴은 생성자 형식으로 만든 것과 동일한 종류의 객체를 생성한다.
+- 그리고 앞서 언급한 것처럼 생성자는 가급적 쓰지 않는 편이 좋다.
+
+
 
 ### 3.4.1. Array()
 > 이상한 빈 슬롯 배열을 만들어 쓰지말자!
 - Array(1,2,3)과 new Array(1,2,3)은 같다, 하지만 배열의 크기를 미리 정하는건 이상하다.(나중에 까먹으면 어쩌려고?)
 - 빈배열을 만들고 나중에 length프로퍼티에 숫자값을 할당하는게 맞음(빈배열 생기면 안된다.)
 - 빈배열 말고 'undefined' 값 원소로 채워진 배열 생성 하는 방법? ::: Array.apply(null, {length:3}) ::: -> Array(3)보다 훨씬 나음
-<img width="826" alt="스크린샷 2022-02-04 오후 5 36 29" src="https://user-images.githubusercontent.com/67423755/152497696-4950c45a-fb49-4c8a-b6a1-f57ca7e61847.png">
-
+<img width="809" alt="스크린샷 2022-02-05 오후 3 52 01" src="https://user-images.githubusercontent.com/67423755/152632040-58df7750-b1f4-41ed-ae36-d95e3c967074.png">
 
 
 ### 3.4.2. Object(), Function(), and RegExp() 
 - Object() 생성자는 쓸일이 없다. 리터럴로 한번에 정의할 수 있는데 굳이?
-- Function() 생성자는 함수의 인자나내용을 동적으로 정의해야하는 매우 드문경우에 한해 유용함. 하지만 거의 없다.
+- Function() 생성자는 함수의 인자나내용을 동적으로 정의해야하는 **매우드문경우**에 한해 유용함. 하지만 거의 없다.
 - RegExp() 생성자는 정규표현식 패턴을 동적으로 정의해야하는 경우 :: new RegExp("패턴","플래그")
 <img width="738" alt="스크린샷 2022-02-04 오후 5 36 50" src="https://user-images.githubusercontent.com/67423755/152497882-a289b2c2-5846-4ca0-8ba2-1797d46eab68.png">
 
@@ -81,6 +86,8 @@
 - String.prototype 객체에 정의된 메소드에 접근할 수 있다. 프로토타입의 위임덕에 모든 문자열이 이 메서드를 같이 쓸 수 있다.
 - 변수에 값이 할당되지 않은 상태에서 Function.prototype: 빈함수, RegExp.prototype:빈 정규식, Array.prototype: 빈배열은 모두 적당한 디폴트 값이다.
 
+<br/><br/>
+
 ## 3.5. 정리하기
-- 자바스크립트는 원시 값을 감싸는 객체 래퍼, 즉 네이티브(String, Number, Boolean)를 제공한다.
-- 'abc' 같은 단순 스칼라원시 값이 있을때, 이 값의 length 프로퍼티나 String.prototype 정의된 메서드를 호출하면 자바스크립트는 자동으로 원시 갑을 박싱하여 필요한 프로퍼티와 메서드를 쓸 수 있게 도와준다.
+- 정리하자면 자바스크립트의 7가지 자료형을 사용한 코드들이(변수에서 함수를 호출하던 행위) 자동적으로 '객체 래퍼로 박싱되는 과정을 거친다'는 동작원리를 이해하면 될것 같다
+- 특정상황이 아니면 왠만해선 굳이 new를 이용해서 객체를 만들지 말자.
