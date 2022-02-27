@@ -1,4 +1,4 @@
-# CH.4 Scope
+# CH.6 Scope
 
 > **스코프**란 특정 장소에 변수를 저장하고 나중에 그 변수를 찾는데 정의된 규칙.
 > 쉽게 말해 **코드에 접근할 수 있는 범위**
@@ -63,7 +63,7 @@
 // value라는 변수 컨테이너에 값 hello world를 넣어주는 LHS참조 
 var value = 'hello world'
 
-// console rorcpdptj log()메소드를 가져오는 RHS 참조
+// console 객체에서 log()메소드를 가져오는 RHS 참조
 // value라는 변수를 찾아오는 RHS 참조
 console.log(value)
 
