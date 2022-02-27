@@ -129,7 +129,7 @@ foo(1);
      foo(2); // foo()를 호출하는 RHS
      ```
      - 결과
-       <img width="366" alt="image" src="https://user-images.githubusercontent.com/84619866/155863058-e93c5d60-5f57-4235-9c8b-94c8e304bf8c.png">
+     <img width="366" alt="image" src="https://user-images.githubusercontent.com/84619866/155863058-e93c5d60-5f57-4235-9c8b-94c8e304bf8c.png">
 2. LHS 동작(For you)
 
     ```javascript
