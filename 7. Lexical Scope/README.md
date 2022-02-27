@@ -15,7 +15,7 @@
 function foo(a) { // 중간 스코프 foo() (2)
     var b = a * 2;
     
-    function bar(b) { // 가장 안쪽의 스코프 bar() (3)
+    function bar(c) { // 가장 안쪽의 스코프 bar() (3)
         // LHS, RHS 규칙에 따라 내부에서 바깥의 스코프로 검색해간다.
         // 단, 해당 확인자를 탐색해내면 탐색 중단.
         console.log(a, b, c)
